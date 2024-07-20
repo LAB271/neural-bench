@@ -1,9 +1,9 @@
-from network import Network
-from fc_layer import FCLayer
-from quantized_layer import QuantizedLayer
-from activation_layer import ActivationLayer
-from activations import tanh, tanh_prime
-from losses import mse, mse_prime
+from neural_bench.network import Network
+from neural_bench.fc_layer import FCLayer
+from neural_bench.quantized_layer import QuantizedLayer
+from neural_bench.activation_layer import ActivationLayer
+from neural_bench.activations import tanh, tanh_prime
+from neural_bench.losses import mse, mse_prime
 
 from keras.datasets import mnist
 #from keras.utils import to_categorical
@@ -18,7 +18,7 @@ def prep_data():
     print("Loading MNIST ....")
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
     print("Prep data")
-    # training data : 60000 samples
+    # training data : 60000 samplesß
     # reshape and normalize input data
     x_train = x_train.reshape(x_train.shape[0], 1, 28*28)
     x_train = x_train.astype('float32')
@@ -38,11 +38,11 @@ def train_network(train_in, train_out):
     # Network
     net = Network()
     net.add(FCLayer(28*28, 100))                # input_shape=(1, 28*28)    ;   output_shape=(1, 100)
-    # net.add(ActivationLayer(tanh, tanh_prime))
+    net.add(ActivationLayer(tanh, tanh_prime))
     net.add(FCLayer(100, 50))                   # input_shape=(1, 100)      ;   output_shape=(1, 50)
     net.add(ActivationLayer(tanh, tanh_prime))
     net.add(FCLayer(50, 10))                    # input_shape=(1, 50)       ;   output_shape=(1, 10)
-    # net.add(ActivationLayer(tanh, tanh_prime))
+    net.add(ActivationLayer(tanh, tanh_prime))
 
     # train on 1000 samples
     # as we didn't implemented mini-batch GD, training will be pretty slow if we update at each iteration on 60000 samples...

@@ -1,4 +1,4 @@
-from layer import Layer
+from neural_bench.layer import Layer
 import numpy as np
 
 # inherit from base class Layer
